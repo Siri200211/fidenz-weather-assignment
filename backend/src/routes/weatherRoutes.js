@@ -2,11 +2,12 @@ import express from "express";
 import { fetchWeatherData } from "../services/weatherService.js";
 import { calculateComfortIndex } from "../utils/comfortIndex.js";
 import { weatherCache } from "../cache/weatherCache.js";
+import { checkJwt } from "../middleware/auth.js";
 
 
 const router = express.Router();
 
-router.get("/comfort", async (req, res) => {
+router.get("/comfort", checkJwt , async (req, res) => {
   try {
     const { data, cacheStatus } = await fetchWeatherData();
 
@@ -28,7 +29,7 @@ router.get("/comfort", async (req, res) => {
   }
 });
 
-router.get("/cache-status", (req, res) => {
+router.get("/cache-status", checkJwt, (req, res) => {
   res.json({
     weatherCacheKeys: weatherCache.keys(),
     stats: weatherCache.getStats()
