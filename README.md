@@ -1,17 +1,17 @@
 # Weather Comfort Dashboard 🌤️
 
-A full-stack app that analyzes real-time weather data and ranks cities by a custom **comfort score**. It uses **Auth0** for authentication, a **secured Express API**, and a responsive React dashboard.
+A full-stack web application that analyzes real-time weather data and ranks cities using a custom Comfort Index. The system uses secure authentication, a protected backend API, and a responsive frontend dashboard.
 
 ---
 
 ## 📌 Features
 
-- Auth0 login (MFA enabled) and protected routes
-- Backend API secured with JWT validation
-- Live data from OpenWeather API with in-memory caching
-- Comfort score calculation per city and ranking
-- Responsive dashboard UI with floating logout button
-- Clear separation of frontend and backend
+- Secure login using Auth0 (MFA enabled)
+- Protected backend API with JWT validation
+- Real-time weather data from OpenWeather API
+- City ranking based on Comfort Index
+- In-memory caching to reduce external API calls
+- Responsive React dashboard
 
 ---
 
@@ -19,94 +19,111 @@ A full-stack app that analyzes real-time weather data and ranks cities by a cust
 
 **Frontend**: React, Auth0 React SDK, CSS
 
-**Backend**: Node.js, Express, Auth0 JWT validation, Axios, node-cache
+**Backend**: Node.js, Express, Axios, node-cache, Auth0 JWT validation
 
 ---
 
-## 🔐 Authentication
+## ⚙️ Setup Instructions
 
-- Auth0 handles auth; public sign-up is disabled.
-- Frontend obtains an access token and sends it as `Authorization: Bearer <token>`.
-- Backend validates tokens with `express-oauth2-jwt-bearer` before serving data.
+### Clone the Repository
+```bash
+git clone https://github.com/Siri200211/fidenz-weather-assignment.git
+cd fidenz-weather-app
+```
 
-Auth flow: (1) User logs in via Auth0. (2) Auth0 issues an access token. (3) Frontend calls backend with the token. (4) Backend validates and returns secure data.
+### Backend Setup
+```bash
+cd backend
+npm install
+```
+
+Create a `.env` file:
+```env
+PORT=5000
+OPENWEATHER_API_KEY=your_openweather_key
+AUTH0_DOMAIN=your_auth0_domain
+AUTH0_AUDIENCE=https://weather-api
+```
+
+Run backend:
+```bash
+npm run dev
+```
+
+### Frontend Setup
+```bash
+cd frontend
+npm install
+npm start
+```
+
+App runs at: http://localhost:3000
 
 ---
 
-## 📊 Comfort Score
+## 📊 Comfort Index Formula Explanation
 
 I designed the Comfort Index using a simple rule-based method so that it is easy to understand and explain. Instead of using complex formulas or machine learning, I start with a perfect comfort score of 100 and reduce it only when conditions go outside normal comfort ranges. Temperature is given the highest importance because it affects comfort the most. Humidity has a smaller effect, and wind speed is reduced only when it becomes too high. The final score is rounded and kept above 0, giving an easy and clear comfort value.
 
+---
+
+## ⚖️ Reasoning Behind Variable Weights
+
+- **Temperature**: Has the highest impact because it affects human comfort the most.
+- **Humidity**: Has a moderate impact, as very dry or very humid air can cause discomfort.
+- **Wind Speed**: Affects comfort only when it becomes too strong, so it is penalized only above a set limit of 5.
+
+The weights reflect the relative importance of each factor on perceived comfort.
+
+---
+
+## 🔁 Trade-offs Considered
+
+- A rule-based method was chosen to keep the logic simple and explainable.
+- Real-time performance was prioritized over complex calculations.
+
+---
+
+## 🗄️ Cache Design Explanation
+
+The backend uses `node-cache` to store recent weather API responses in memory for 5 minutes. This reduces repeated calls to the OpenWeather API, improves response time, and helps avoid exceeding API rate limits. After 5 minutes, the cached data expires and fresh data is fetched from the API.
+
+---
+
+## ⚠️ Known Limitations
+
+- Comfort ranges are based on general assumptions and may not suit all users.
+- The Comfort Index does not consider factors such as air quality or precipitation.
+- In-memory caching resets when the server restarts.
+- The system depends on the availability of the OpenWeather API.
+
+---
 
 ## 📂 Project Structure
 
 ```
 frontend/
-	src/
-		components/
-			Header.js
-			WeatherTable.js
-		pages/
-			Dashboard.js
-		assets/
-			weather.png.avif
-			dashboard.avif
-		App.js
-		App.css
+  src/
+    components/
+    pages/
+    assets/
+    App.js
+    App.css
 
 backend/
-	src/
-		routes/
-		services/
-		middleware/
-		cache/
-		utils/
-		server.js
-	.env (not committed)
+  src/
+    routes/
+    services/
+    middleware/
+    cache/
+    utils/
+    server.js
 ```
-
----
-
-## ⚙️ Setup & Run
-
-1) Clone
-```
-git clone https://github.com/Siri200211/fidenz-weather-assignment.git
-cd fidenz-weather-app
-```
-
-2) Backend
-```
-cd backend
-npm install
-
-# .env
-PORT=5000
-OPENWEATHER_API_KEY=your_openweather_key
-AUTH0_DOMAIN=your_auth0_domain
-AUTH0_AUDIENCE=https://weather-api
-
-npm run dev
-```
-
-3) Frontend
-```
-cd frontend
-npm install
-npm start
-# App runs at http://localhost:3000
-```
-
----
-
-## 🔧 Notes
-
-- Caching: `node-cache` keeps the latest API payload in memory to reduce calls.
-- Assets: main and dashboard backgrounds photos live in `frontend/src/assets/`.
-- Auth0: ensure the audience in Auth0 matches `AUTH0_AUDIENCE` and the backend uses the same domain.
 
 ---
 
 ## 👤 Author
 
-Venuka Sirimanne — Internship Assignment, Fidenz Technologies
+**Venuka Sirimanne**
+
+Internship Assignment – Fidenz Technologies
