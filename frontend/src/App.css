@@ -235,3 +235,31 @@ tbody td:nth-child(5) {
   border-radius: 6px;
   cursor: pointer;
 }
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.search-btn {
+  padding: 9px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #00bcd4;
+  color: white;
+  font-size: 14px;
+}
+
+.search-btn:hover {
+  background-color: #0097a7;
+}

@@ -16,11 +16,17 @@ function Dashboard() {
   const [weather, setWeather] = useState([]);
   const [sortBy, setSortBy] = useState("comfort");
   const [sortOrder, setSortOrder] = useState("desc");
+  const [searchText, setSearchText] = useState("");
+
 
   const [theme, setTheme] = useState("dark");
 
 
-  const sortedWeather = [...weather].sort((a, b) => {
+  const filteredWeather = weather.filter((city) =>
+    city.city.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const sortedWeather = [...filteredWeather].sort((a, b) => {
     let valueA, valueB;
 
     if (sortBy === "city") {
@@ -38,6 +44,7 @@ function Dashboard() {
     if (valueA > valueB) return sortOrder === "asc" ? 1 : -1;
     return 0;
   });
+
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -103,27 +110,29 @@ function Dashboard() {
           <Header />
 
           <div className="dashboard-card">
-            <div className="sort-controls">
-              <label>
-                Sort By:
-                <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                  <option value="comfort">Comfort Score</option>
-                  <option value="temperature">Temperature</option>
-                  <option value="city">City Name</option>
-                </select>
-              </label>
 
-              <label>
-                Order:
-                <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-                  <option value="desc">Descending</option>
-                  <option value="asc">Ascending</option>
-                </select>
-              </label>
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="Search by city..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+              <button className="search-btn" aria-label="Search">
+                🔍
+              </button>
             </div>
 
 
-            <WeatherTable weather={sortedWeather} />
+
+            <WeatherTable
+              weather={sortedWeather}
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              setSortBy={setSortBy}
+              setSortOrder={setSortOrder}
+            />
+
 
           </div>
         </div>
