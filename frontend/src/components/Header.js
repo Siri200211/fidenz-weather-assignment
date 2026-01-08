@@ -4,7 +4,7 @@ import "../App.css";
 function Header() {
   const { logout, isAuthenticated } = useAuth0();
 
-  // Header is only shown AFTER login
+  
   if (!isAuthenticated) {
     return null;
   }

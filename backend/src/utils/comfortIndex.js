@@ -1,24 +1,28 @@
 export function calculateComfortIndex(weather) {
-  const temp = weather.main.temp;        // °C
-  const humidity = weather.main.humidity; // %
-  const wind = weather.wind.speed;        // m/s
+  const temperature = weather.main.temp;      // °C
+  const humidity = weather.main.humidity;     // %
+  const windSpeed = weather.wind.speed;       // m/s
 
-  let score = 100;
+  const IDEAL_TEMP = 24;
+  const IDEAL_HUMIDITY = 50;
+  const MAX_WIND = 5;
 
-  // Temperature penalty
-  if (temp < 18 || temp > 30) {
-    score -= Math.abs(24 - temp) * 2;
+  let comfortScore = 100;
+
+  // Temperature effect
+  if (temperature < 18 || temperature > 30) {
+    comfortScore -= Math.abs(IDEAL_TEMP - temperature) * 2;
   }
 
-  // Humidity penalty
+  // Humidity effect
   if (humidity < 40 || humidity > 60) {
-    score -= Math.abs(50 - humidity) * 0.5;
+    comfortScore -= Math.abs(IDEAL_HUMIDITY - humidity) * 0.5;
   }
 
-  // Wind penalty
-  if (wind > 5) {
-    score -= (wind - 5) * 2;
+  // Wind effect
+  if (windSpeed > MAX_WIND) {
+    comfortScore -= (windSpeed - MAX_WIND) * 2;
   }
 
-  return Math.max(0, Math.min(100, Math.round(score)));
+  return Math.max(0, Math.min(100, Math.round(comfortScore)));
 }

@@ -25,7 +25,7 @@ A full-stack app that analyzes real-time weather data and ranks cities by a cust
 
 ## 🔐 Authentication
 
-- Auth0 handles auth; public sign-up is disabled; email MFA enabled.
+- Auth0 handles auth; public sign-up is disabled.
 - Frontend obtains an access token and sends it as `Authorization: Bearer <token>`.
 - Backend validates tokens with `express-oauth2-jwt-bearer` before serving data.
 
@@ -35,16 +35,8 @@ Auth flow: (1) User logs in via Auth0. (2) Auth0 issues an access token. (3) Fro
 
 ## 📊 Comfort Score
 
-Computed per city using temperature and weather condition, normalized to 0–100. Higher = more comfortable. Results are sorted descending.
+I designed the Comfort Index using a simple rule-based method so that it is easy to understand and explain. Instead of using complex formulas or machine learning, I start with a perfect comfort score of 100 and reduce it only when conditions go outside normal comfort ranges. Temperature is given the highest importance because it affects comfort the most. Humidity has a smaller effect, and wind speed is reduced only when it becomes too high. This method makes it clear how each factor changes the final score and keeps the system easy to adjust, test, and use in real situations.
 
----
-
-## 🖥️ UI States
-
-- **Before login**: hero landing page with background image and login button.
-- **After login**: full-screen dashboard background, semi-transparent card, ranking table, floating logout button (bottom-right), responsive layout.
-
----
 
 ## 📂 Project Structure
 
@@ -79,7 +71,7 @@ backend/
 
 1) Clone
 ```
-git clone <repository-url>
+git clone https://github.com/Siri200211/fidenz-weather-assignment.git
 cd fidenz-weather-app
 ```
 
@@ -110,17 +102,8 @@ npm start
 ## 🔧 Notes
 
 - Caching: `node-cache` keeps the latest API payload in memory to reduce calls.
-- Assets: hero and dashboard backgrounds live in `frontend/src/assets/`.
+- Assets: main and dashboard backgrounds photos live in `frontend/src/assets/`.
 - Auth0: ensure the audience in Auth0 matches `AUTH0_AUDIENCE` and the backend uses the same domain.
-
----
-
-## 🌟 Future Enhancements
-
-- Role-based access control (RBAC)
-- Search and filtering for cities
-- Dark / light mode toggle
-- Pagination for large datasets
 
 ---
 
