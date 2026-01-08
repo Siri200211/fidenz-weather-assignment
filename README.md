@@ -35,7 +35,7 @@ Auth flow: (1) User logs in via Auth0. (2) Auth0 issues an access token. (3) Fro
 
 ## 📊 Comfort Score
 
-I designed the Comfort Index using a simple rule-based method so that it is easy to understand and explain. Instead of using complex formulas or machine learning, I start with a perfect comfort score of 100 and reduce it only when conditions go outside normal comfort ranges. Temperature is given the highest importance because it affects comfort the most. Humidity has a smaller effect, and wind speed is reduced only when it becomes too high. This method makes it clear how each factor changes the final score and keeps the system easy to adjust, test, and use in real situations.
+I designed the Comfort Index using a simple rule-based method so that it is easy to understand and explain. Instead of using complex formulas or machine learning, I start with a perfect comfort score of 100 and reduce it only when conditions go outside normal comfort ranges. Temperature is given the highest importance because it affects comfort the most. Humidity has a smaller effect, and wind speed is reduced only when it becomes too high. The final score is rounded and kept above 0, giving an easy and clear comfort value.
 
 
 ## 📂 Project Structure
