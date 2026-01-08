@@ -8,9 +8,36 @@ import "../App.css";
 import heroImage from "../assets/weather.png.avif";
 import dashboardBg from "../assets/dashboard.avif";
 
+
+
+
 function Dashboard() {
   const { isAuthenticated, getAccessTokenSilently, loginWithRedirect } = useAuth0();
   const [weather, setWeather] = useState([]);
+  const [sortBy, setSortBy] = useState("comfort");
+  const [sortOrder, setSortOrder] = useState("desc");
+  
+  const [theme, setTheme] = useState("dark");
+
+
+const sortedWeather = [...weather].sort((a, b) => {
+  let valueA, valueB;
+
+  if (sortBy === "city") {
+    valueA = a.city.toLowerCase();
+    valueB = b.city.toLowerCase();
+  } else if (sortBy === "temperature") {
+    valueA = a.temperature;
+    valueB = b.temperature;
+  } else {
+    valueA = a.comfortScore;
+    valueB = b.comfortScore;
+  }
+
+  if (valueA < valueB) return sortOrder === "asc" ? -1 : 1;
+  if (valueA > valueB) return sortOrder === "asc" ? 1 : -1;
+  return 0;
+});
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -34,7 +61,6 @@ function Dashboard() {
     }
   }, [isAuthenticated, getAccessTokenSilently]);
 
-  /* ---------- BEFORE LOGIN (Landing / Hero Section) ---------- */
   if (!isAuthenticated) {
     return (
       <div className="container">
@@ -43,6 +69,13 @@ function Dashboard() {
           style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="hero-overlay">
+            <button
+        className="theme-toggle"
+         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+>
+        {theme === "dark" ? "🌞 Light Mode" : "🌙 Dark Mode"}
+         </button>
+
             <h1>Weather Comfort Analytics</h1>
             <p>
               Discover the most comfortable cities using real-time weather data.
@@ -59,18 +92,39 @@ function Dashboard() {
     );
   }
 
-  /* ---------- AFTER LOGIN (Dashboard) ---------- */
   return (
     <div
-      className="dashboard-bg"
-      style={{ backgroundImage: `url(${dashboardBg})` }}
-    >
+  className={`dashboard-bg ${theme}`}
+  style={{ backgroundImage: `url(${dashboardBg})` }}
+>
+
       <div className="dashboard-overlay">
         <div className="container dashboard-layout">
            <Header />
 
            <div className="dashboard-card">
-              <WeatherTable weather={weather} />
+            <div className="sort-controls">
+         <label>
+              Sort By:
+           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+      <option value="comfort">Comfort Score</option>
+        <option value="temperature">Temperature</option>
+      <option value="city">City Name</option>
+     </select>
+    </label>
+
+   <label>
+    Order:
+    <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+      <option value="desc">Descending</option>
+      <option value="asc">Ascending</option>
+    </select>
+  </label>
+</div>
+
+
+              <WeatherTable weather={sortedWeather} />
+
            </div>
         </div>
       </div>

@@ -194,3 +194,44 @@ tbody td:nth-child(5) {
 
   z-index: 1000;
 }
+/* Sort controls styles */
+.sort-controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.sort-controls label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.sort-controls select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+}
+.dashboard-bg.light .dashboard-overlay {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.dashboard-bg.light .dashboard-card {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.dashboard-bg.light .dashboard-title,
+.dashboard-bg.light .sort-controls {
+  color: #1e3a8a;
+}
+
+.theme-toggle {
+  margin-bottom: 15px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
