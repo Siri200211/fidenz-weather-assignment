@@ -7,7 +7,7 @@ import { checkJwt } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/comfort", checkJwt , async (req, res) => {
+router.get("/comfort",  async (req, res) => {
   try {
     const { data, cacheStatus } = await fetchWeatherData();
 

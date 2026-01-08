@@ -1,8 +1,15 @@
-/*import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
+import Header from "../components/Header";
+import WeatherTable from "../components/WeatherTable";
+import "../App.css";
+
+// Images
+import heroImage from "../assets/weather.png.avif";
+import dashboardBg from "../assets/dashboard.avif";
 
 function Dashboard() {
-  const { logout, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, loginWithRedirect } = useAuth0();
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
@@ -22,52 +29,53 @@ function Dashboard() {
       setWeather(data.results);
     };
 
-    fetchWeather();
-  }, [getAccessTokenSilently]);
+    if (isAuthenticated) {
+      fetchWeather();
+    }
+  }, [isAuthenticated, getAccessTokenSilently]);
 
-  return (
-    <div style={{ padding: "40px" }}>
-      <h2>Weather Comfort Dashboard</h2>
-
-      <button
-  onClick={() =>
-    logout({
-      logoutParams: {
-        returnTo: window.location.origin
-      }
-    })
+  /* ---------- BEFORE LOGIN (Landing / Hero Section) ---------- */
+  if (!isAuthenticated) {
+    return (
+      <div className="container">
+        <div
+          className="hero"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        >
+          <div className="hero-overlay">
+            <h1>Weather Comfort Analytics</h1>
+            <p>
+              Discover the most comfortable cities using real-time weather data.
+            </p>
+            <button
+              className="btn-primary"
+              onClick={() => loginWithRedirect()}
+            >
+              Login to Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
-  style={{ marginBottom: "20px" }}
->
-  Logout
-</button>
 
+  /* ---------- AFTER LOGIN (Dashboard) ---------- */
+  return (
+    <div
+      className="dashboard-bg"
+      style={{ backgroundImage: `url(${dashboardBg})` }}
+    >
+      <div className="dashboard-overlay">
+        <div className="container dashboard-layout">
+           <Header />
 
-      <table border="1" cellPadding="10">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>City</th>
-            <th>Temperature (°C)</th>
-            <th>Description</th>
-            <th>Comfort Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {weather.map((city, index) => (
-            <tr key={city.city}>
-              <td>{index + 1}</td>
-              <td>{city.city}</td>
-              <td>{city.temperature}</td>
-              <td>{city.description}</td>
-              <td>{city.comfortScore}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+           <div className="dashboard-card">
+              <WeatherTable weather={weather} />
+           </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default Dashboard;
-*/
