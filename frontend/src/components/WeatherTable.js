@@ -53,19 +53,19 @@ function WeatherTable({
 
             <td data-label="City">{city.city}</td>
 
-            <td data-label="Temperature">
-              {city.temperature.toFixed(1)}
-            </td>
-
+           <td data-label="Temperature" className="value-center">
+  {city.temperature.toFixed(1)}
+</td>
             <td data-label="Condition">
               {city.description}
             </td>
 
-            <td data-label="Comfort Score">
-              <span className={`badge ${scoreClass(city.comfortScore)}`}>
-                {city.comfortScore}
-              </span>
-            </td>
+            
+<td data-label="Comfort Score" className="value-center">
+  <span className={`badge ${scoreClass(city.comfortScore)}`}>
+    {city.comfortScore}
+  </span>
+</td>
           </tr>
         ))}
       </tbody>

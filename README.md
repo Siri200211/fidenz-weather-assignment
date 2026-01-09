@@ -86,7 +86,7 @@ The weights reflect the relative importance of each factor on perceived comfort.
 
 ## 🗄️ Cache Design Explanation
 
-The backend uses `node-cache` to store recent weather API responses in memory for 5 minutes. This reduces repeated calls to the OpenWeather API, improves response time, and helps avoid exceeding API rate limits. After 5 minutes, the cached data expires and fresh data is fetched from the API.
+The backend uses `node-cache` to store recent weather API responses in memory for 1 minute. This reduces repeated calls to the OpenWeather API, improves response time, and helps avoid exceeding API rate limits. After 1 minute, the cached data expires and fresh data is fetched from the API.
 
 ---
 
