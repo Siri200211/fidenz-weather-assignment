@@ -1,13 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import "../App.css";
 
-function Header() {
+function Header({ theme, setTheme }) {
   const { logout, isAuthenticated } = useAuth0();
 
-  
-  if (!isAuthenticated) {
-    return null;
-  }
+  if (!isAuthenticated) return null;
 
   return (
     <>
@@ -15,6 +12,15 @@ function Header() {
         <div className="nav-title">
           🌤️ Weather Comfort Dashboard
         </div>
+
+        <button
+          className="theme-toggle"
+          onClick={() =>
+            setTheme(theme === "dark" ? "light" : "dark")
+          }
+        >
+          {theme === "dark" ? "🌞 Light" : "🌙 Dark"}
+        </button>
       </header>
 
       <button

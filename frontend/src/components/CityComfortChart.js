@@ -29,8 +29,6 @@ function CityComfortChart({ data, city }) {
             stroke="#000"
             tick={{ fill: "#000", fontSize: 12 }}
           />
-
-          {/* Tooltip */}
           <Tooltip
             contentStyle={{
               backgroundColor: "#fff",

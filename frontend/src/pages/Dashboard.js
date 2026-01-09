@@ -11,7 +11,6 @@ import dashboardBg from "../assets/dashboard.avif";
 
 function Dashboard() {
   const { isAuthenticated, getAccessTokenSilently, loginWithRedirect } = useAuth0();
-
   const [weather, setWeather] = useState([]);
   const [sortBy, setSortBy] = useState("comfort");
   const [sortOrder, setSortOrder] = useState("desc");
@@ -151,7 +150,8 @@ function Dashboard() {
     >
       <div className="dashboard-overlay">
         <div className="dashboard-layout">
-          <Header />
+          <Header theme={theme} setTheme={setTheme} />
+
 
           <div className="dashboard-card">
             {/* Search */}
