@@ -47,67 +47,67 @@ function Dashboard() {
   });
 
   /*FETCH WEATHER DATA*/
- useEffect(() => {
-  if (!isAuthenticated) return;
+  useEffect(() => {
+    if (!isAuthenticated) return;
 
-  const fetchWeather = async () => {
-    const token = await getAccessTokenSilently();
+    const fetchWeather = async () => {
+      const token = await getAccessTokenSilently();
 
-    const response = await fetch(
-      "http://localhost:5000/api/weather/comfort",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const response = await fetch(
+        "http://localhost:5000/api/weather/comfort",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      }
-    );
+      );
 
-    const data = await response.json();
-    setWeather(data.results); 
-  };
+      const data = await response.json();
+      setWeather(data.results);
+    };
 
-  fetchWeather(); 
+    fetchWeather();
 
-  const interval = setInterval(fetchWeather, 5000); // every 5 sec
+    const interval = setInterval(fetchWeather, 5000); // every 5 sec
 
-  return () => clearInterval(interval);
-}, [isAuthenticated, getAccessTokenSilently]);
+    return () => clearInterval(interval);
+  }, [isAuthenticated, getAccessTokenSilently]);
 
 
   /*BUILD REAL TRENDS */
   useEffect(() => {
-  if (!weather.length) return;
+    if (!weather.length) return;
 
-  setCityTrends((prev) => {
-    const updated = { ...prev };
+    setCityTrends((prev) => {
+      const updated = { ...prev };
 
-    weather.forEach((city) => {
-      const lastEntry = updated[city.city]?.slice(-1)[0];
+      weather.forEach((city) => {
+        const lastEntry = updated[city.city]?.slice(-1)[0];
 
-      
-      if (lastEntry && lastEntry.comfort === city.comfortScore) {
-        return;
-      }
 
-      const time = new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
+        if (lastEntry && lastEntry.comfort === city.comfortScore) {
+          return;
+        }
+
+        const time = new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        });
+
+        if (!updated[city.city]) {
+          updated[city.city] = [];
+        }
+
+        updated[city.city] = [
+          ...updated[city.city],
+          { time, comfort: city.comfortScore }
+        ].slice(-12);
       });
 
-      if (!updated[city.city]) {
-        updated[city.city] = [];
-      }
-
-      updated[city.city] = [
-        ...updated[city.city],
-        { time, comfort: city.comfortScore }
-      ].slice(-12); 
+      return updated;
     });
-
-    return updated;
-  });
-}, [weather]);
+  }, [weather]);
 
 
 
@@ -172,7 +172,9 @@ function Dashboard() {
               sortOrder={sortOrder}
               setSortBy={setSortBy}
               setSortOrder={setSortOrder}
+              setSelectedCity={setSelectedCity}
             />
+
 
             {/* City Selector */}
             <select

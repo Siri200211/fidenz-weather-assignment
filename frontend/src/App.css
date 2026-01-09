@@ -126,7 +126,7 @@ body {
 .dashboard-card {
   width: 100%;
   max-width: 1100px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(212, 211, 211, 0.18);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 35px;
@@ -236,7 +236,7 @@ tbody td {
     min-width: 120px;
     font-weight: 700;
     font-size: 13px;
-    color: #1f2937;
+    color: #362b47;
     white-space: nowrap;
   }
 
@@ -270,4 +270,17 @@ tbody tr td:last-child {
 
 .value-center .badge {
   margin: 0 auto;
+}
+.trend-btn {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  cursor: pointer;
+}
+
+.trend-btn:hover {
+  background: #16a34a;
 }

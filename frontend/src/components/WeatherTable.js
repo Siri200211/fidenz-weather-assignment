@@ -5,9 +5,9 @@ function WeatherTable({
   sortBy,
   sortOrder,
   setSortBy,
-  setSortOrder
+  setSortOrder,
+  setSelectedCity
 }) {
-
   const scoreClass = (score) => {
     if (score >= 70) return "score-high";
     if (score >= 50) return "score-medium";
@@ -43,6 +43,8 @@ function WeatherTable({
               <span onClick={() => handleSort("comfort", "desc")}>▼</span>
             </span>
           </th>
+
+          <th>Trend</th>
         </tr>
       </thead>
 
@@ -53,19 +55,29 @@ function WeatherTable({
 
             <td data-label="City">{city.city}</td>
 
-           <td data-label="Temperature" className="value-center">
-  {city.temperature.toFixed(1)}
-</td>
+            <td data-label="Temperature" className="value-center">
+              {city.temperature.toFixed(1)}
+            </td>
+
             <td data-label="Condition">
               {city.description}
             </td>
 
-            
-<td data-label="Comfort Score" className="value-center">
-  <span className={`badge ${scoreClass(city.comfortScore)}`}>
-    {city.comfortScore}
-  </span>
-</td>
+            <td data-label="Comfort Score" className="value-center">
+              <span className={`badge ${scoreClass(city.comfortScore)}`}>
+                {city.comfortScore}
+              </span>
+            </td>
+
+            {/* VIEW TREND BUTTON */}
+            <td data-label="Trend" className="value-center">
+              <button
+                className="trend-btn"
+                onClick={() => setSelectedCity(city.city)}
+              >
+                View Trend
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
