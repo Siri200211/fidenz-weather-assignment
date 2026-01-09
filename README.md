@@ -122,6 +122,36 @@ backend/
 
 ---
 
+## 🎁 Bonus Features
+
+### 🔍 Search Functionality
+
+The dashboard allows users to search weather data by city name.
+
+Users can enter a city name in the search box.
+
+Searching is case-insensitive and works in real time.
+
+### 🔃 Sorting Functionality
+
+The dashboard supports sorting weather data by key metrics.
+
+Users can sort by Temperature or Comfort Score.
+
+Sorting can be done in ascending or descending order using arrow controls.
+
+### 📈 Comfort Trend Graph
+
+The dashboard includes a line chart showing comfort score changes for each city.
+
+On initial load, the chart shows a single dot, representing the current comfort score.
+
+As weather data changes over time, new values are added.
+
+Trend data resets on page reload since it is stored in frontend memory.
+
+---
+
 ## 👤 Author
 
 **Venuka Sirimanne**

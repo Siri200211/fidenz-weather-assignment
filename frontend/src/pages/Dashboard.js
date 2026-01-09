@@ -46,7 +46,7 @@ function Dashboard() {
     return 0;
   });
 
-  /*FETCH WEATHER*/
+  /*FETCH WEATHER DATA*/
  useEffect(() => {
   if (!isAuthenticated) return;
 
@@ -63,10 +63,10 @@ function Dashboard() {
     );
 
     const data = await response.json();
-    setWeather(data.results); //  single source of truth
+    setWeather(data.results); 
   };
 
-  fetchWeather(); // initial fetch
+  fetchWeather(); 
 
   const interval = setInterval(fetchWeather, 5000); // every 5 sec
 
@@ -74,7 +74,7 @@ function Dashboard() {
 }, [isAuthenticated, getAccessTokenSilently]);
 
 
-  /* BUILD REAL TRENDS */
+  /*BUILD REAL TRENDS */
   useEffect(() => {
   if (!weather.length) return;
 
@@ -84,7 +84,7 @@ function Dashboard() {
     weather.forEach((city) => {
       const lastEntry = updated[city.city]?.slice(-1)[0];
 
-      //  Do NOT add if value didn't change
+      
       if (lastEntry && lastEntry.comfort === city.comfortScore) {
         return;
       }
@@ -102,7 +102,7 @@ function Dashboard() {
       updated[city.city] = [
         ...updated[city.city],
         { time, comfort: city.comfortScore }
-      ].slice(-12); // keep last 12 points
+      ].slice(-12); 
     });
 
     return updated;
