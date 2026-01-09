@@ -67,7 +67,7 @@ function Dashboard() {
 
     fetchWeather();
 
-    const interval = setInterval(fetchWeather, 30000); // every 5 sec
+    const interval = setInterval(fetchWeather, 30000); // every 30 sec
 
     return () => clearInterval(interval);
   }, [isAuthenticated, getAccessTokenSilently]);
