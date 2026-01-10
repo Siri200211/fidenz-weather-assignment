@@ -108,9 +108,6 @@ function Dashboard() {
     });
   }, [weather]);
 
-
-
-
   /*LOGIN PAGE*/
   if (!isAuthenticated) {
     return (
