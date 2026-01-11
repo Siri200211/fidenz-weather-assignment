@@ -2,7 +2,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import WeatherTable from "../components/WeatherTable";
-import CityComfortChart from "../components/CityComfortChart";
 import "../App.css";
 
 // Images
@@ -116,12 +115,6 @@ function Dashboard() {
           style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="hero-overlay">
-            <button
-              className="theme-toggle"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            >
-              {theme === "dark" ? "🌞 Light Mode" : "🌙 Dark Mode"}
-            </button>
 
             <h1>Weather Comfort Analytics</h1>
             <p>Discover the most comfortable cities using real-time weather data.</p>
@@ -169,36 +162,10 @@ function Dashboard() {
               setSortBy={setSortBy}
               setSortOrder={setSortOrder}
               setSelectedCity={setSelectedCity}
+              selectedCity={selectedCity}
+              cityTrends={cityTrends}
+              theme={theme}
             />
-
-
-            {/* City Selector */}
-            <select
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              style={{
-                marginTop: "20px",
-                padding: "8px",
-                borderRadius: "6px",
-                width: "100%"
-              }}
-            >
-              <option value="">Select a city to view trend</option>
-              {weather.map((city) => (
-                <option key={city.city} value={city.city}>
-                  {city.city}
-                </option>
-              ))}
-            </select>
-
-            {/* Graph */}
-            {selectedCity && cityTrends[selectedCity] && (
-              <CityComfortChart
-                city={selectedCity}
-                data={cityTrends[selectedCity]}
-                theme={theme}  
-              />
-            )}
           </div>
         </div>
       </div>
