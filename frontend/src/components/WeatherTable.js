@@ -29,9 +29,45 @@ function WeatherTable({
         <tr>
           <th>Rank</th>
           <th>City</th>
-          <th>Temperature (°C)</th>
+          <th>
+            Temperature (°C)
+            <div className="sort-controls">
+              <button
+                className={`sort-arrow ${sortBy === 'temperature' && sortOrder === 'asc' ? 'active' : ''}`}
+                onClick={() => handleSort('temperature', 'asc')}
+                title="Sort by Temperature (Low to High)"
+              >
+                ▲
+              </button>
+              <button
+                className={`sort-arrow ${sortBy === 'temperature' && sortOrder === 'desc' ? 'active' : ''}`}
+                onClick={() => handleSort('temperature', 'desc')}
+                title="Sort by Temperature (High to Low)"
+              >
+                ▼
+              </button>
+            </div>
+          </th>
           <th>Condition</th>
-          <th>Comfort Score</th>
+          <th>
+            Comfort Score
+            <div className="sort-controls">
+              <button
+                className={`sort-arrow ${sortBy === 'comfort' && sortOrder === 'asc' ? 'active' : ''}`}
+                onClick={() => handleSort('comfort', 'asc')}
+                title="Sort by Comfort Score (Low to High)"
+              >
+                ▲
+              </button>
+              <button
+                className={`sort-arrow ${sortBy === 'comfort' && sortOrder === 'desc' ? 'active' : ''}`}
+                onClick={() => handleSort('comfort', 'desc')}
+                title="Sort by Comfort Score (High to Low)"
+              >
+                ▼
+              </button>
+            </div>
+          </th>
           <th>Trend</th>
         </tr>
       </thead>
