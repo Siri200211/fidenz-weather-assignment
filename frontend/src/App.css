@@ -177,6 +177,40 @@ thead th {
   font-size: 20px;
 }
 
+.sort-controls {
+  display: inline-flex;
+  flex-direction: column;
+  margin-left: 10px;
+  gap: 3px;
+  vertical-align: middle;
+}
+
+.sort-arrow {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 3px 6px;
+  line-height: 1;
+  transition: all 0.2s ease;
+  font-weight: bold;
+  min-width: 24px;
+}
+
+.sort-arrow:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.sort-arrow.active {
+  background: #21ce60;
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(33, 206, 96, 0.5);
+}
+
 tbody tr {
   background: rgba(241, 239, 239, 0.9);
   border-radius: 15px;
@@ -313,6 +347,21 @@ tbody tr td:last-child {
 
 .dashboard-bg.dark .badge {
   color: #fff;
+}
+
+.dashboard-bg.dark .sort-arrow {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(229, 231, 235, 0.8);
+}
+
+.dashboard-bg.dark .sort-arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.dashboard-bg.dark .sort-arrow.active {
+  background: #21ce60;
+  color: #ffffff;
 }
 
 /* MOBILE RESPONSIVE (Tablets) */
