@@ -6,19 +6,19 @@ A full-stack web application that analyzes real-time weather data and ranks citi
 System Architecture Diagram
 
 ┌──────────────────────────┐
-│        User Browser       │
-│        (React App)        │
+│        User Browser      │
+│        (React App)       │
 │                          │
-│  - Weather Table          │
-│  - Search & Sort          │
-│  - Trend Line Chart       │
-│  - Dark Mode              │
+│  - Weather Table         │
+│  - Search & Sort         │
+│  - Trend Line Chart      │
+│  - Dark Mode             │
 └────────────┬─────────────┘
              │  HTTPS (REST API)
              ▼
 ┌──────────────────────────┐
-│   Backend Server          │
-│   (Node.js + Express)     │
+│   Backend Server         │
+│   (Node.js + Express)    │
 │                          │
 │  - Auth0 Authentication  │
 │  - Weather API Endpoint  │
@@ -28,15 +28,15 @@ System Architecture Diagram
       Cache HIT / MISS
              │
 ┌────────────▼─────────────┐
-│   In-Memory Cache         │
-│   (NodeCache)             │
-│   TTL-based Storage       │
+│   In-Memory Cache        │
+│   (NodeCache)            │
+│   TTL-based Storage      │
 └────────────┬─────────────┘
              │  Cache Miss
              ▼
 ┌──────────────────────────┐
-│   External Weather API    │
-│   (OpenWeather)           │
+│   External Weather API   │
+│   (OpenWeather)          │
 └──────────────────────────┘
 
 
