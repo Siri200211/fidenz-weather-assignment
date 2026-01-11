@@ -7,43 +7,51 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-function CityComfortChart({ data, city }) {
+function CityComfortChart({ data, city, theme }) {
+  const axisColor = theme === "dark" ? "#ffffff" : "#000000";
+  const lineColor = theme === "dark" ? "#ffffff" : "#1d4ed8";
+  const tooltipBg = theme === "dark" ? "#020617" : "#ffffff";
+  const tooltipText = theme === "dark" ? "#ffffff" : "#000000";
+
   return (
     <div style={{ width: "100%", height: 250 }}>
-      <h3 style={{ textAlign: "center", margin: "6px 0 10px", color: "#000" }}>
-        {city} Comfort Trend
+      <h3
+        style={{
+          textAlign: "center",
+          margin: "6px 0 10px",
+          color: axisColor
+        }}
+      >
+        {city} Temperature Trend (°C)
       </h3>
 
       <ResponsiveContainer width="100%" height={220}>
         <LineChart data={data}>
-          {/* X Axis */}
           <XAxis
             dataKey="time"
-            stroke="#000"
-            tick={{ fill: "#000", fontSize: 12 }}
+            stroke={axisColor}
+            tick={{ fill: axisColor, fontSize: 12 }}
           />
 
-          {/* Y Axis */}
           <YAxis
-            domain={[0, 100]}
-            stroke="#000"
-            tick={{ fill: "#000", fontSize: 12 }}
+            stroke={axisColor}
+            tick={{ fill: axisColor, fontSize: 12 }}
           />
+
           <Tooltip
             contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #000",
-              color: "#000"
+              backgroundColor: tooltipBg,
+              border: `1px solid ${axisColor}`,
+              color: tooltipText
             }}
-            labelStyle={{ color: "#000" }}
-            itemStyle={{ color: "#000" }}
+            labelStyle={{ color: tooltipText }}
+            itemStyle={{ color: tooltipText }}
           />
 
-          {/* Line */}
           <Line
             type="monotone"
-            dataKey="comfort"
-            stroke="#448a59"
+            dataKey="temperature"
+            stroke={lineColor}
             strokeWidth={3}
             dot
             isAnimationActive={false}

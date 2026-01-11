@@ -19,7 +19,7 @@ function Dashboard() {
   const [selectedCity, setSelectedCity] = useState("");
   const [cityTrends, setCityTrends] = useState({});
 
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   /* FILTER & SORT*/
   const filteredWeather = weather.filter((city) =>
@@ -82,9 +82,7 @@ function Dashboard() {
 
       weather.forEach((city) => {
         const lastEntry = updated[city.city]?.slice(-1)[0];
-
-
-        if (lastEntry && lastEntry.comfort === city.comfortScore) {
+        if (lastEntry && lastEntry.temperature === city.temperature) {
           return;
         }
 
@@ -100,13 +98,14 @@ function Dashboard() {
 
         updated[city.city] = [
           ...updated[city.city],
-          { time, comfort: city.comfortScore }
+          { time, temperature: city.temperature }
         ].slice(-12);
       });
 
       return updated;
     });
   }, [weather]);
+
 
   /*LOGIN PAGE*/
   if (!isAuthenticated) {
@@ -197,6 +196,7 @@ function Dashboard() {
               <CityComfortChart
                 city={selectedCity}
                 data={cityTrends[selectedCity]}
+                theme={theme}  
               />
             )}
           </div>

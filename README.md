@@ -176,13 +176,13 @@ Users can sort by Temperature or Comfort Score.
 
 Sorting can be done in ascending or descending order using arrow controls.
 
-### 📈 Comfort Trend Graph
+### 📈 tempearature Trend Graph
 
-The dashboard includes a line chart showing comfort score changes for each city.
+The dashboard includes a line chart showing temperature changes for each city.
 
-On initial load, the chart shows a single dot, representing the current comfort score.
+On initial load, the chart shows a single dot, representing the current temperature.
 
-As weather data changes over time, new values are added.
+As temperature changes over time, new temperature are added.
 
 Trend data resets on page reload since it is stored in frontend memory.
 
