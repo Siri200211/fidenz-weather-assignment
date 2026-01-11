@@ -2,7 +2,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import WeatherTable from "../components/WeatherTable";
-import CityComfortChart from "../components/CityComfortChart";
 import "../App.css";
 
 // Images
@@ -19,7 +18,7 @@ function Dashboard() {
   const [selectedCity, setSelectedCity] = useState("");
   const [cityTrends, setCityTrends] = useState({});
 
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   /* FILTER & SORT*/
   const filteredWeather = weather.filter((city) =>
@@ -67,7 +66,7 @@ function Dashboard() {
 
     fetchWeather();
 
-    const interval = setInterval(fetchWeather, 30000); // every 5 sec
+    const interval = setInterval(fetchWeather, 30000); // every 30 sec
 
     return () => clearInterval(interval);
   }, [isAuthenticated, getAccessTokenSilently]);
@@ -82,9 +81,7 @@ function Dashboard() {
 
       weather.forEach((city) => {
         const lastEntry = updated[city.city]?.slice(-1)[0];
-
-
-        if (lastEntry && lastEntry.comfort === city.comfortScore) {
+        if (lastEntry && lastEntry.temperature === city.temperature) {
           return;
         }
 
@@ -100,15 +97,13 @@ function Dashboard() {
 
         updated[city.city] = [
           ...updated[city.city],
-          { time, comfort: city.comfortScore }
+          { time, temperature: city.temperature }
         ].slice(-12);
       });
 
       return updated;
     });
   }, [weather]);
-
-
 
 
   /*LOGIN PAGE*/
@@ -120,12 +115,6 @@ function Dashboard() {
           style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="hero-overlay">
-            <button
-              className="theme-toggle"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            >
-              {theme === "dark" ? "🌞 Light Mode" : "🌙 Dark Mode"}
-            </button>
 
             <h1>Weather Comfort Analytics</h1>
             <p>Discover the most comfortable cities using real-time weather data.</p>
@@ -173,35 +162,10 @@ function Dashboard() {
               setSortBy={setSortBy}
               setSortOrder={setSortOrder}
               setSelectedCity={setSelectedCity}
+              selectedCity={selectedCity}
+              cityTrends={cityTrends}
+              theme={theme}
             />
-
-
-            {/* City Selector */}
-            <select
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              style={{
-                marginTop: "20px",
-                padding: "8px",
-                borderRadius: "6px",
-                width: "100%"
-              }}
-            >
-              <option value="">Select a city to view trend</option>
-              {weather.map((city) => (
-                <option key={city.city} value={city.city}>
-                  {city.city}
-                </option>
-              ))}
-            </select>
-
-            {/* Graph */}
-            {selectedCity && cityTrends[selectedCity] && (
-              <CityComfortChart
-                city={selectedCity}
-                data={cityTrends[selectedCity]}
-              />
-            )}
           </div>
         </div>
       </div>

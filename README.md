@@ -3,6 +3,42 @@
 A full-stack web application that analyzes real-time weather data and ranks cities using a custom Comfort Index. The system uses secure authentication, a protected backend API, and a responsive frontend dashboard.
 
 ---
+System Architecture Diagram
+
+┌──────────────────────────┐
+│        User Browser       │
+│        (React App)        │
+│                          │
+│  - Weather Table          │
+│  - Search & Sort          │
+│  - Trend Line Chart       │
+│  - Dark Mode              │
+└────────────┬─────────────┘
+             │  HTTPS (REST API)
+             ▼
+┌──────────────────────────┐
+│   Backend Server          │
+│   (Node.js + Express)     │
+│                          │
+│  - Auth0 Authentication  │
+│  - Weather API Endpoint  │
+│  - Comfort Score Logic   │
+└────────────┬─────────────┘
+             │
+      Cache HIT / MISS
+             │
+┌────────────▼─────────────┐
+│   In-Memory Cache         │
+│   (NodeCache)             │
+│   TTL-based Storage       │
+└────────────┬─────────────┘
+             │  Cache Miss
+             ▼
+┌──────────────────────────┐
+│   External Weather API    │
+│   (OpenWeather)           │
+└──────────────────────────┘
+
 
 ## 📌 Features
 
@@ -140,13 +176,13 @@ Users can sort by Temperature or Comfort Score.
 
 Sorting can be done in ascending or descending order using arrow controls.
 
-### 📈 Comfort Trend Graph
+### 📈 tempearature Trend Graph
 
-The dashboard includes a line chart showing comfort score changes for each city.
+The dashboard includes a line chart showing temperature changes for each city.
 
-On initial load, the chart shows a single dot, representing the current comfort score.
+On initial load, the chart shows a single dot, representing the current temperature.
 
-As weather data changes over time, new values are added.
+As temperature changes over time, new temperature are added.
 
 Trend data resets on page reload since it is stored in frontend memory.
 
